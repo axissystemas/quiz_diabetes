@@ -1,0 +1,17 @@
+{
+  "name": "quiz-diabetes-tipo-1",
+  "version": "1.0.0",
+  "description": "Quiz educativo e interativo sobre Diabetes Tipo 1 - Microbiologia & Imunologia 1 UVA",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8080"
+  },
+  "keywords": [
+    "quiz",
+    "diabetes",
+    "imunologia",
+    "educativo"
+  ],
+  "author": "",
+  "license": "ISC"
+}
