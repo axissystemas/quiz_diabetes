@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Diabetes Tipo 1 - Uma Doença Autoimune</title>
+    <meta name="description"
+        content="Teste seus conhecimentos sobre o Diabetes Tipo 1 com este quiz educativo e interativo baseado no cartaz científico sobre imunologia e saúde.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="background-globes">
+        <div class="globe globe-1"></div>
+        <div class="globe globe-2"></div>
+        <div class="globe globe-3"></div>
+    </div>
+
+    <audio id="bg-music" src="music/POL-foggy-forest-short.wav" loop preload="auto"></audio>
+
+    <main class="app-container">
+        <!-- Header / Brand -->
+        <header class="header">
+            <div class="badge-biomedicina">
+
+                <span>Microbiologia & Imunologia 1 - UVA</span>
+            </div>
+            <button id="btn-music-toggle" class="music-toggle-btn" title="Alternar música de fundo"
+                aria-label="Alternar música de fundo">
+                <span id="music-icon" class="music-icon">🔊</span>
+                <span class="music-waves">
+                    <span></span><span></span><span></span>
+                </span>
+            </button>
+        </header>
+
+        <!-- Dynamic Screen Container -->
+        <div id="screen-container" class="screen-container">
+
+            <!-- TELA INICIAL -->
+            <section id="start-screen" class="screen active">
+                <div class="icon-hero-wrapper">
+                    <div class="hero-icon-glow"></div>
+                    <img src="icones/biomedicina.png" alt="Biomedicina" class="hero-icon">
+                </div>
+
+                <h1 class="main-title">Quiz: Diabetes Tipo 1</h1>
+                <p class="subtitle">Você aprendeu com o cartaz? Teste seus conhecimentos!</p>
+
+                <div class="info-card">
+                    <div class="info-item">
+                        <span class="info-icon">❓</span>
+                        <span>5 Perguntas Rápidas</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-icon">💡</span>
+                        <span>Explicações Educativas</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-icon">📱</span>
+                        <span>Layout Interativo</span>
+                    </div>
+                </div>
+
+                <button id="btn-start" class="btn btn-primary btn-lg">
+                    <span>Começar Quiz</span>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                </button>
+            </section>
+
+            <!-- TELA DE PERGUNTA -->
+            <section id="quiz-screen" class="screen">
+                <!-- Barra de Progresso -->
+                <div class="progress-section">
+                    <div class="progress-header">
+                        <span id="progress-text" class="progress-text">Pergunta 1 de 5</span>
+                        <span id="progress-percent" class="progress-percent">20%</span>
+                    </div>
+                    <div class="progress-bar-bg">
+                        <div id="progress-bar-fill" class="progress-bar-fill" style="width: 20%;"></div>
+                    </div>
+                </div>
+
+                <!-- Card da Pergunta -->
+                <div class="question-card">
+                    <div class="question-tag" id="question-tag">
+                        <span class="tag-icon" id="tag-icon">🧬</span>
+                        <span id="tag-text">Imunologia</span>
+                    </div>
+                    <h2 id="question-text" class="question-text">Carregando pergunta...</h2>
+
+                    <!-- Opções de Resposta -->
+                    <div id="options-container" class="options-container">
+                        <!-- Gerado via JS -->
+                    </div>
+
+                    <!-- Card de Feedback -->
+                    <div id="feedback-card" class="feedback-card hidden">
+                        <div class="feedback-header">
+                            <span id="feedback-icon" class="feedback-icon">✨</span>
+                            <h3 id="feedback-title" class="feedback-title">Resposta Correta!</h3>
+                        </div>
+                        <p id="feedback-text" class="feedback-text">Explicação...</p>
+                    </div>
+                </div>
+
+                <!-- Ações -->
+                <div class="action-footer">
+                    <button id="btn-next" class="btn btn-next hidden" disabled>
+                        <span>Próxima Pergunta</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                    </button>
+                </div>
+            </section>
+
+            <!-- TELA FINAL -->
+            <section id="result-screen" class="screen">
+                <div class="result-badge-wrapper">
+                    <div class="score-circle">
+                        <span id="score-number" class="score-number">0</span>
+                        <span class="score-total">de 5</span>
+                    </div>
+                </div>
+
+                <h2 id="result-title" class="result-title">Parabéns!</h2>
+                <p id="result-subtitle" class="result-subtitle">Você concluiu o quiz sobre Diabetes Tipo 1.</p>
+
+                <div class="quote-card">
+                    <div class="quote-icon">💜</div>
+                    <blockquote class="quote-text">
+                        “Obrigado por participar! Informação gera consciência, consciência gera prevenção e prevenção
+                        salva vidas.”
+                    </blockquote>
+                </div>
+
+                <div class="result-actions">
+                    <button id="btn-restart" class="btn btn-primary btn-lg">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+                            <path d="M3 3v5h5" />
+                        </svg>
+                        <span>Refazer Quiz</span>
+                    </button>
+                    <button id="btn-home" class="btn btn-secondary">
+                        <span>Voltar ao Início</span>
+                    </button>
+                </div>
+            </section>
+
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Conscientização e Educação em Saúde • Diabetes Tipo 1</p>
+        </footer>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
