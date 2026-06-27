@@ -106,24 +106,52 @@ const btnMusicToggle = document.getElementById('btn-music-toggle');
 const musicIcon = document.getElementById('music-icon');
 let isMusicPlaying = false;
 
+function playAudio() {
+    if (!bgMusic || isMusicPlaying) return;
+    bgMusic.play().then(() => {
+        isMusicPlaying = true;
+        if (btnMusicToggle) btnMusicToggle.classList.add('playing');
+        if (musicIcon) musicIcon.textContent = '🔊';
+    }).catch(err => {
+        console.log("Autoplay aguardando primeira interação do usuário:", err);
+    });
+}
+
 function toggleMusic() {
     if (isMusicPlaying) {
         bgMusic.pause();
         isMusicPlaying = false;
-        btnMusicToggle.classList.remove('playing');
-        musicIcon.textContent = '🔇';
+        if (btnMusicToggle) btnMusicToggle.classList.remove('playing');
+        if (musicIcon) musicIcon.textContent = '🔇';
     } else {
-        bgMusic.play().then(() => {
-            isMusicPlaying = true;
-            btnMusicToggle.classList.add('playing');
-            musicIcon.textContent = '🔊';
-        }).catch(err => console.log("Audio play blocked by browser:", err));
+        playAudio();
     }
 }
 
 if (btnMusicToggle) {
-    btnMusicToggle.addEventListener('click', toggleMusic);
+    btnMusicToggle.addEventListener('click', (e) => {
+        e.stopPropagation(); // Evita acionar o listener global
+        toggleMusic();
+    });
 }
+
+// Tenta tocar imediatamente ao carregar a página
+window.addEventListener('DOMContentLoaded', playAudio);
+playAudio();
+
+// Garante o início da música ao primeiro toque/clique em qualquer lugar da tela caso o navegador tenha bloqueado o autoplay
+const handleFirstInteraction = () => {
+    if (!isMusicPlaying) {
+        playAudio();
+    }
+    ['click', 'touchstart', 'keydown', 'scroll'].forEach(evt => {
+        document.removeEventListener(evt, handleFirstInteraction);
+    });
+};
+
+['click', 'touchstart', 'keydown', 'scroll'].forEach(evt => {
+    document.addEventListener(evt, handleFirstInteraction, { once: true });
+});
 
 // Event Listeners
 btnStart.addEventListener('click', startQuiz);
@@ -145,14 +173,7 @@ function startQuiz() {
     currentQuestionIndex = 0;
     score = 0;
     
-    // Auto-play music on user interaction if not already playing
-    if (!isMusicPlaying && bgMusic) {
-        bgMusic.play().then(() => {
-            isMusicPlaying = true;
-            if (btnMusicToggle) btnMusicToggle.classList.add('playing');
-            if (musicIcon) musicIcon.textContent = '🔊';
-        }).catch(err => console.log("Audio play blocked:", err));
-    }
+    playAudio();
 
     switchScreen(quizScreen);
     loadQuestion();
