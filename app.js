@@ -206,16 +206,23 @@ function loadQuestion() {
     }
 
     // Render Options
-    optionsContainer.innerHTML = '';
+    optionsContainer.replaceChildren();
     const letters = ['A', 'B', 'C', 'D'];
 
     currentQuiz.options.forEach((optionText, index) => {
         const button = document.createElement('button');
         button.className = 'option-btn';
-        button.innerHTML = `
-            <span class="option-letter">${letters[index]}</span>
-            <span class="option-text">${optionText}</span>
-        `;
+
+        const letterSpan = document.createElement('span');
+        letterSpan.className = 'option-letter';
+        letterSpan.textContent = letters[index];
+
+        const textSpan = document.createElement('span');
+        textSpan.className = 'option-text';
+        textSpan.textContent = optionText;
+
+        button.appendChild(letterSpan);
+        button.appendChild(textSpan);
         button.addEventListener('click', () => selectOption(index));
         optionsContainer.appendChild(button);
     });
